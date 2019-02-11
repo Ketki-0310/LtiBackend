@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.training.entity.Retailer;
+import com.lti.training.entity.RetailerDto;
 import com.lti.training.service.RetailerService;
 
 @CrossOrigin
@@ -21,6 +22,14 @@ public class RetailerController {
 	@Autowired
 	private RetailerService RetailerService;
 
+	@RequestMapping(path = "/loginRetailer", method = RequestMethod.POST)
+	public String login(@RequestBody RetailerDto retailerDto) {
+		
+		boolean flag=RetailerService.verify(retailerDto);
+		String flagS=Boolean.toString(flag);
+		return flagS;
+	}
+	
 	@RequestMapping(path = "/addRetailer", method = RequestMethod.POST)
 	public String add(@RequestBody Retailer retailer) {
 		RetailerService.add(retailer);
@@ -35,4 +44,6 @@ public class RetailerController {
 		RetailerService.delete(retailer);
 		return "Deleted";
 	}
+	
+	
 }

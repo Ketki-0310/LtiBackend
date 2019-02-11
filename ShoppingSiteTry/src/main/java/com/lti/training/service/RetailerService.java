@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.training.Repository.RetailerRepo;
 import com.lti.training.entity.Retailer;
+import com.lti.training.entity.RetailerDto;
 
 
 @Service("mS")
@@ -20,6 +21,19 @@ public class RetailerService {
 	public void add(Retailer retailer) {
 		retailerRepo.add(retailer);
 
+	}
+	public boolean verify(RetailerDto retailerDto) {
+		List<Retailer> list =fetchAll();
+		System.out.println(list.size());
+		boolean flag=false;
+		for(Retailer re:list) {
+			if(retailerDto.getEmail().equals(re.getEmail()))
+				if(retailerDto.getPassword().equals(re.getPassword()))
+					System.out.println("true");
+					flag=true;
+		}
+		return flag;
+		
 	}
 	
 	public Retailer fetch(int id) {
