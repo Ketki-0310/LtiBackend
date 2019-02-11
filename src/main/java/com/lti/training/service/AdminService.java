@@ -32,9 +32,7 @@ public class AdminService {
 
 		for (Admin x : adminList) {
 			if (email.equals(x.getEmail())) {
-				//System.out.println("if1");
 				if (password.equals(x.getPassword())) {
-					//System.out.println("if2");
 					boolean flag = true;
 					return flag;
 				}

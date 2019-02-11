@@ -1,32 +1,28 @@
 package com.lti.training.dao;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
-
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
-
-import com.lti.training.entity.Admin;
+import com.lti.training.entity.Customer;
 
 @Repository
-public class AdminDao {
+public class CustomerDao {
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void add(Admin admin) {
-		entityManager.merge(admin);
+	public void add(Customer customer) {
+		entityManager.persist(customer);
 	}
 
-	public Admin fetch(int id) {
-		return entityManager.find(Admin.class, id);
+	public Customer fetch(int id) {
+		return entityManager.find(Customer.class, id);
 	}
 
-	public List<Admin> fetchAll() {
-		Query q = entityManager.createQuery("select obj from Admin as obj");
+	public List<Customer> fetchAll() {
+		Query q = entityManager.createQuery("select obj from Customer as obj");
 		return q.getResultList();
 	}
 }

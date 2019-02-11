@@ -1,6 +1,8 @@
 package com.lti.training;
 
 import java.util.List;
+
+//import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import com.lti.training.dao.AdminDao;
+
+import com.lti.training.dao.AddressDao;
+import com.lti.training.dao.CustomerDao;
 import com.lti.training.entity.Address;
 import com.lti.training.entity.Admin;
 import com.lti.training.entity.Customer;
@@ -20,36 +24,48 @@ import com.lti.training.entity.Customer;
 @Rollback(false)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 
-public class AdminTest {
+public class CustomerTest {
 
 	@Autowired
-	private AdminDao adminDao;
-
+	private CustomerDao customerDao;
+	
+	@Autowired
+	private AddressDao addressDao; 
 	@Transactional
 	@Test
-	public void addAdmin() {
+	public void addCustomer() {
 
 		//making the customer object 
-		Admin admin = new Admin();
-		admin.setEmail("Lisha");
-		admin.setPassword("123456789");
+		Customer customer = new Customer();
+		customer.setFirstname("Melissa");
+		customer.setLastname("Dsouza");
+		customer.setEmail("melissa@gmail.com");
+		customer.setPassword("melissa1996");
+		customer.setContact("9876543210");
+		
+		Address address=new Address();
+		address.setLine1("Vasant Vihar Building");
+		address.setLine2("Near Kohinoor Hotel");
+		address.setState("Maharashtra");
+		address.setPincode(400103);
+		address.setCity("Mumbai");
+		customer.setAddress(address);
 		
 		//adding the customer details plus the address details to the database
-		adminDao.add(admin);
+		customerDao.add(customer);
 	}
 
-
 	@Test
-	public void verifyAdmin()
-	{
+	public void verifyCustomer() {
 
 		boolean flag = false;
-		String email = "Pooja";
-		String password = "1234";
+		Customer customer = new Customer();
+		String email = "pooja";
+		String password = "123456";
 
-		List<Admin> adminList = adminDao.fetchAll();
+		List<Customer> customerList = customerDao.fetchAll();
 
-		for (Admin x : adminList) {
+		for (Customer x : customerList) {
 			if (email.equals(x.getEmail())) {
 				if (password.equals(x.getPassword())) {
 					flag = true;
@@ -58,8 +74,8 @@ public class AdminTest {
 		}
 		String flag1 = Boolean.toString(flag);
 		if (flag1.equals("true"))
-			System.out.println("user is verified");
+			System.out.println("customer is verified");
 		else
-			System.out.println("user is not verified");
+			System.out.println("customer is not verified");
 	}
 }
