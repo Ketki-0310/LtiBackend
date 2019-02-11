@@ -15,6 +15,7 @@ import com.lti.training.entity.enums.Category;
 @Table(name="SS_retailer")
 public class Retailer {
 	
+	//bjhghg
 @Id
 @GeneratedValue
 	private int Retailer_id;

@@ -29,7 +29,6 @@ public class RetailerService {
 		for(Retailer re:list) {
 			if(retailerDto.getEmail().equals(re.getEmail()))
 				if(retailerDto.getPassword().equals(re.getPassword()))
-					System.out.println("true");
 					flag=true;
 		}
 		return flag;
